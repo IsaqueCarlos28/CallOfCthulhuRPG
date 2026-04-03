@@ -146,6 +146,6 @@ public class Investigador {
                 Idade = %s
                 }
                 """.formatted(id,nomeInvestigador,ocupacao,formacaoAcademica,
-                localNascimento,transtornosMentais,genero,idade);
+                localNascimento,transtornosMentais.toString(),genero,idade);
     }
 }

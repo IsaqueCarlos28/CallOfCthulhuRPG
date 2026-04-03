@@ -1,14 +1,13 @@
 package com.senac.tsi.CallOfCthulhuRPG.domains.atributos;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
 import java.util.Objects;
 
 @Entity
-public class Atributo {
+public class AtributoBasico {
 
     @Id
     @GeneratedValue
@@ -16,7 +15,7 @@ public class Atributo {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private NomeAtributo nome;
+    private NomeAtributoBasico nome;
 
     @NotNull
     @Range(min = 1,max = 100,message = "O valor de atributo deve ser entre 1 e 100")
@@ -24,8 +23,8 @@ public class Atributo {
 
     //CONSTRUCTORS
 
-    public Atributo(){}
-    public Atributo(NomeAtributo nome,int valor){
+    public AtributoBasico(){}
+    public AtributoBasico(NomeAtributoBasico nome, int valor){
         setNome(nome);
         setValor(valor);
     }
@@ -36,10 +35,10 @@ public class Atributo {
         return id;
     }
 
-    public NomeAtributo getNome() {
+    public NomeAtributoBasico getNome() {
         return nome;
     }
-    public void setNome(NomeAtributo nome) {
+    public void setNome(NomeAtributoBasico nome) {
         if (valor < 1 || valor > 100) {
             throw new RuntimeException("Valor deve estar entre 1 e 100");
         }
@@ -78,8 +77,8 @@ public class Atributo {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Atributo)) return false;
-        Atributo that = (Atributo) o;
+        if (!(o instanceof AtributoBasico)) return false;
+        AtributoBasico that = (AtributoBasico) o;
         return id != null && id.equals(that.id);
     }
 

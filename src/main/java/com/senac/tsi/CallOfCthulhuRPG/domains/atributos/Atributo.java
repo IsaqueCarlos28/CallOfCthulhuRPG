@@ -1,6 +1,8 @@
 package com.senac.tsi.CallOfCthulhuRPG.domains.atributos;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
@@ -10,7 +12,8 @@ import java.util.Objects;
 public class Atributo {
 
     @NotNull
-    @Range(min = 1,max = 100,message = "O valor de atributo deve ser entre 1 e 100")
+    @Min(0)
+    @Max(100)
     private int valor;
 
     //CONSTRUCTORS

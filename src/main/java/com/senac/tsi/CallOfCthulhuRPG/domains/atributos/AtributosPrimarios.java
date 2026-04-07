@@ -3,20 +3,48 @@ package com.senac.tsi.CallOfCthulhuRPG.domains.atributos;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 @Embeddable
 public class AtributosPrimarios {
 
+    @NotNull
+    @Valid
     @Embedded private Atributo forca;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo constituicao;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo tamanho;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo destreza;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo aparencia;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo sanidade;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo inteligencia;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo poder;
+
+    @NotNull
+    @Valid
     @Embedded private Atributo educacao;
 
     //CONSTRUCTOR

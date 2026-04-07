@@ -2,29 +2,52 @@ package com.senac.tsi.CallOfCthulhuRPG.domains.atributos;
 
 import com.senac.tsi.CallOfCthulhuRPG.domains.ficha.Ficha;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.util.Objects;
 
 @Entity
 public class AtributosFicha {
 
+
     @Id
     @GeneratedValue
     private Long id;
 
+    @NotNull(message = "Ficha é obrigatória")
     @OneToOne
     @JoinColumn(name = "ficha_id")
     private Ficha ficha;
 
+    @Valid
     @Embedded
     private AtributosPrimarios atributosPrimarios;
 
+
+    @NotNull
+    @PositiveOrZero
     private int magia;
+
+    @NotNull
+    @PositiveOrZero
     private int vida;
+
+    @NotNull
+    @PositiveOrZero
     private int sanidade;
 
+    @NotNull
+    @PositiveOrZero
     private int sorte;
+
+    @NotNull
+    @PositiveOrZero
     private int corpo;
+
+    @NotNull
+    @PositiveOrZero
     private int danoExtra;
 
     //CONSTRUCTOR

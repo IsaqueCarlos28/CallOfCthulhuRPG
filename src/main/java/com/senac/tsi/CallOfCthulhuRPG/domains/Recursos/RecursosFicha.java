@@ -1,7 +1,10 @@
-package com.senac.tsi.CallOfCthulhuRPG.domains.ItensEDinheiro;
+package com.senac.tsi.CallOfCthulhuRPG.domains.Recursos;
 
 import com.senac.tsi.CallOfCthulhuRPG.domains.ficha.Ficha;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,33 +17,33 @@ public class RecursosFicha {
     @GeneratedValue
     private Long id;
 
+    @NotNull(message = "Ficha é obrigatória")
     @OneToOne
     @JoinColumn(name = "ficha_id")
     private Ficha ficha;
 
+    @NotNull(message = "Nivel de Gasto é obrigatório")
     @Enumerated(EnumType.STRING)
     private NivelGasto nivelDeGasto;
 
-    private float dinheiro;
+    @NotNull(message = "dinheiro é obrigatorio")
+    private float dinheiro = 0;
 
-    // Strings
     @ElementCollection
-    private Set<String> posses = new HashSet<>();
+    private Set<@NotBlank(message = "Posse Invalida") String> posses = new HashSet<>();
 
-    // Embeddable
+    @Valid
     @ElementCollection
-    private Set<Item> inventario = new HashSet<>();
+    private Set<@NotNull Item> inventario = new HashSet<>();
 
-    // =====================
-    // CONSTRUCTOR
-    // =====================
+//CONSTRUCTORs
 
     public RecursosFicha() {}
 
     public RecursosFicha(Ficha ficha, NivelGasto nivelDeGasto, float dinheiro) {
-        this.ficha = ficha;
-        this.nivelDeGasto = nivelDeGasto;
-        this.dinheiro = dinheiro;
+       setFicha(ficha);
+       setNivelDeGasto(nivelDeGasto);
+       setDinheiro(dinheiro);
     }
 
    //GETTERs e SETTERs

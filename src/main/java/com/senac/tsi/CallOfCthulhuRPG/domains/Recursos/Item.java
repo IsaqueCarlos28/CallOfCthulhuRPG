@@ -1,13 +1,20 @@
-package com.senac.tsi.CallOfCthulhuRPG.domains.ItensEDinheiro;
+package com.senac.tsi.CallOfCthulhuRPG.domains.Recursos;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
-import javax.swing.plaf.PanelUI;
 import java.util.Objects;
 
 @Embeddable
 public class Item {
+
+    @NotBlank(message = "Nome do item é obrigatorio")
+    @Size(min = 2, max = 255)
     private String nome;
+
+    @PositiveOrZero(message = "Preço do item não pode ser negativo")
     private float preco;
 
     //CONSTRUCTORs

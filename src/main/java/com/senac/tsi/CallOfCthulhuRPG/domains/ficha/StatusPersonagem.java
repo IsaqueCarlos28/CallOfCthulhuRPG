@@ -1,15 +1,29 @@
 package com.senac.tsi.CallOfCthulhuRPG.domains.ficha;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NegativeOrZero;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.util.Objects;
 
 @Embeddable
 public class StatusPersonagem {
 
+    @NotNull
+    @PositiveOrZero
     private int vidaAtual;
+
+    @NotNull
+    @PositiveOrZero
     private int sanidadeAtual;
+
+    @NotNull
+    @PositiveOrZero
     private int sorteAtual;
+
+    @NotNull
+    @PositiveOrZero
     private int magiaAtual;
 
     //CONSTRUCTORS

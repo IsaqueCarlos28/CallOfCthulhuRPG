@@ -1,12 +1,20 @@
 package com.senac.tsi.CallOfCthulhuRPG.domains.ficha;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
 @Embeddable
 public class CompanheiroCampanha {
+
+    @NotBlank
+    @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
     private String nome;
+
+    @NotBlank
+    @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
     private String personagem;
 
     //CONSTRUCTORs

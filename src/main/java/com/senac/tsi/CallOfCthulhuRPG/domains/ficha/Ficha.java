@@ -6,6 +6,10 @@ import com.senac.tsi.CallOfCthulhuRPG.domains.atributos.AtributosFicha;
 import com.senac.tsi.CallOfCthulhuRPG.domains.habilidades.HabilidadesFicha;
 import com.senac.tsi.CallOfCthulhuRPG.domains.personagens.Investigador;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -17,6 +21,8 @@ public class Ficha {
     @GeneratedValue
     private Long id;
 
+    @NotBlank
+    @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
     private String nomeJogador;
 
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
@@ -37,8 +43,9 @@ public class Ficha {
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private RecursosFicha itensEDinheiro;
 
+    @Valid
     @ElementCollection
-    private Set<CompanheiroCampanha> companheiros;
+    private Set<@NotNull CompanheiroCampanha> companheiros;
 
     //CONSTRUCTORS
     public Ficha(){}

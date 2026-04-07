@@ -1,4 +1,4 @@
-package com.senac.tsi.CallOfCthulhuRPG.repositorios;
+package com.senac.tsi.CallOfCthulhuRPG.repositories;
 
 import com.senac.tsi.CallOfCthulhuRPG.domains.Recursos.RecursosFicha;
 import org.springframework.data.jpa.repository.JpaRepository;

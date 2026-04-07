@@ -20,14 +20,17 @@ public class HabilidadesFicha {
     @JoinColumn(name = "ficha_id")
     private Ficha ficha;
 
+    @NotNull
     @Valid
     @ElementCollection
     private Set< @NotNull(message = "Pericia do investigador nao pode ser Null") Pericia> PericiasInvestigador;
 
+    @NotNull
     @Valid
     @ElementCollection
     private Set<@NotNull(message = "Pericia Ocupacional nao pode ser Null") Pericia> PericiasOcupacional;
 
+    @NotNull
     @Valid
     @ElementCollection
     private Set<@NotNull(message = "Arma nao pode ser Null") Arma> Armas;

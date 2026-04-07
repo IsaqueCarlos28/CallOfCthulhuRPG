@@ -25,24 +25,31 @@ public class Ficha {
     @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
     private String nomeJogador;
 
+    @NotNull
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private Investigador investigador;
 
+    @NotNull
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private AtributosFicha atributos;
 
+    @NotNull
     @Embedded
     private StatusPersonagem status;
 
+    @NotNull
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private HabilidadesFicha habilidades;
 
+    @NotNull
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private Historico historico;
 
+    @NotNull
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private RecursosFicha itensEDinheiro;
 
+    @NotNull
     @Valid
     @ElementCollection
     private Set<@NotNull CompanheiroCampanha> companheiros;

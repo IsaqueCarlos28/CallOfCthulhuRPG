@@ -22,6 +22,7 @@ public class RecursosFicha {
     @JoinColumn(name = "ficha_id")
     private Ficha ficha;
 
+
     @NotNull(message = "Nivel de Gasto é obrigatório")
     @Enumerated(EnumType.STRING)
     private NivelGasto nivelDeGasto;
@@ -29,9 +30,11 @@ public class RecursosFicha {
     @NotNull(message = "dinheiro é obrigatorio")
     private float dinheiro = 0;
 
+    @NotNull
     @ElementCollection
     private Set<@NotBlank(message = "Posse Invalida") String> posses = new HashSet<>();
 
+    @NotNull
     @Valid
     @ElementCollection
     private Set<@NotNull Item> inventario = new HashSet<>();

@@ -2,6 +2,7 @@ package com.senac.tsi.CallOfCthulhuRPG.domains.Recursos;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
@@ -14,6 +15,7 @@ public class Item {
     @Size(min = 1, max = 255)
     private String nome;
 
+    @NotNull
     @PositiveOrZero(message = "Preço do item não pode ser negativo")
     private float preco;
 

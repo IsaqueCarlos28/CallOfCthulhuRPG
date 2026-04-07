@@ -17,16 +17,13 @@ public class AtributosFicha {
     @Embedded
     private AtributosPrimarios atributosPrimarios;
 
-    private int sorte;
 
     private int magia;
-
+    private int vida;
     private int sanidade;
 
-    private int vida;
-
+    private int sorte;
     private int corpo;
-
     private int danoExtra;
 
     //CONSTRUCTOR

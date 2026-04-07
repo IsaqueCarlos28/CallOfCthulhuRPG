@@ -17,8 +17,7 @@ public class AtributosPrimarios {
     @Embedded private Atributo sanidade;
     @Embedded private Atributo inteligencia;
     @Embedded private Atributo poder;
-    @Embedded
-    private Atributo educacao;
+    @Embedded private Atributo educacao;
 
     //CONSTRUCTOR
     public AtributosPrimarios(){}

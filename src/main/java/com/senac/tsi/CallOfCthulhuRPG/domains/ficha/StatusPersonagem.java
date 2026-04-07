@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 import java.util.Objects;
 
 @Embeddable
-public class StatusFicha {
+public class StatusPersonagem {
 
     private int vidaAtual;
     private int sanidadeAtual;
@@ -13,8 +13,8 @@ public class StatusFicha {
     private int magiaAtual;
 
     //CONSTRUCTORS
-    public StatusFicha(){}
-    public StatusFicha(int vidaAtual,int sanidadeAtual, int sorteAtual, int magiaAtual){
+    public StatusPersonagem(){}
+    public StatusPersonagem(int vidaAtual, int sanidadeAtual, int sorteAtual, int magiaAtual){
         setVidaAtual(vidaAtual);
         setSanidadeAtual(sanidadeAtual);
         setSorteAtual(sorteAtual);
@@ -58,7 +58,7 @@ public class StatusFicha {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        StatusFicha that = (StatusFicha) o;
+        StatusPersonagem that = (StatusPersonagem) o;
         return vidaAtual == that.vidaAtual &&
                 sanidadeAtual == that.sanidadeAtual &&
                 sorteAtual == that.sorteAtual &&

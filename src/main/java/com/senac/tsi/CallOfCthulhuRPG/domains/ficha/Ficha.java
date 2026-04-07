@@ -1,14 +1,16 @@
 package com.senac.tsi.CallOfCthulhuRPG.domains.ficha;
 
 import com.senac.tsi.CallOfCthulhuRPG.domains.antecedentes.Antecedentes;
-import com.senac.tsi.CallOfCthulhuRPG.domains.companheiros.CompanheirosCampanha;
 import com.senac.tsi.CallOfCthulhuRPG.domains.ItensEDinheiro.ItensEDinheiroFicha;
+import com.senac.tsi.CallOfCthulhuRPG.domains.antecedentes.Pessoa;
 import com.senac.tsi.CallOfCthulhuRPG.domains.atributos.AtributosFicha;
 import com.senac.tsi.CallOfCthulhuRPG.domains.habilidades.HabilidadesFicha;
 import com.senac.tsi.CallOfCthulhuRPG.domains.personagens.Investigador;
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Ficha {
@@ -24,8 +26,8 @@ public class Ficha {
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private AtributosFicha atributos;
 
-    @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
-    private StatusFicha status;
+    @Embedded
+    private StatusPersonagem status;
 
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private HabilidadesFicha habilidades;
@@ -36,15 +38,15 @@ public class Ficha {
     @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
     private ItensEDinheiroFicha itensEDinheiro;
 
-    @OneToOne(mappedBy = "ficha", cascade = CascadeType.ALL)
-    private CompanheirosCampanha companheiros;
+    @ElementCollection
+    private Set<CompanheiroCampanha> companheiros;
 
     //CONSTRUCTORS
     public Ficha(){}
 
-    public Ficha(String nomeJogador, Investigador investigador, AtributosFicha atributos, StatusFicha status,
+    public Ficha(String nomeJogador, Investigador investigador, AtributosFicha atributos, StatusPersonagem status,
                  HabilidadesFicha habilidades, Antecedentes historico, ItensEDinheiroFicha itensEDinheiro,
-                 CompanheirosCampanha companheiros) {
+                 Set<CompanheiroCampanha> companheiros) {
         setNomeJogador(nomeJogador);
         setInvestigador(investigador);
         setAtributos(atributos);
@@ -82,10 +84,10 @@ public class Ficha {
         this.atributos = atributos;
     }
 
-    public StatusFicha getStatus() {
+    public StatusPersonagem getStatus() {
         return status;
     }
-    public void setStatus(StatusFicha status) {
+    public void setStatus(StatusPersonagem status) {
         this.status = status;
     }
 
@@ -110,15 +112,27 @@ public class Ficha {
         this.itensEDinheiro = itensEDinheiro;
     }
 
-    public CompanheirosCampanha getCompanheiros() {
-        return companheiros;
+    public Set<CompanheiroCampanha> getCompanheiros() {
+        return Collections.unmodifiableSet(companheiros);
     }
-    public void setCompanheiros(CompanheirosCampanha companheiros) {
+    public void setCompanheiros(Set<CompanheiroCampanha> companheiros) {
         this.companheiros = companheiros;
     }
 
     //METODOS
 
+    public void addPessoaImportante(CompanheiroCampanha companheiro) {
+        if (companheiro == null) {
+            throw new IllegalArgumentException("Pessoa não pode ser null");
+        }
+        this.companheiros.add(companheiro);
+    }
+    public void deletePessoaImportante(CompanheiroCampanha companheiro) {
+        if (companheiro == null) {
+            throw new IllegalArgumentException("Pessoa não pode ser null");
+        }
+        this.companheiros.remove(companheiro);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -137,14 +151,14 @@ public class Ficha {
         return """
             Ficha{
                 id=%d,
-                nomeJogador='%s',
-                investigador=%s,
-                atributos=%s,
-                status=%s,
-                habilidades=%s,
-                historico=%s,
-                itensEDinheiro=%s,
-                companheiros=%s
+                nomeJogador= %s,
+                investigador= %s,
+                atributos= %s,
+                status= %s,
+                habilidades= %s,
+                historico= %s,
+                itensEDinheiro= %s,
+                companheiros= %s
             }
             """.formatted(id, nomeJogador, investigador, atributos, status, habilidades, historico,
                 itensEDinheiro, companheiros);

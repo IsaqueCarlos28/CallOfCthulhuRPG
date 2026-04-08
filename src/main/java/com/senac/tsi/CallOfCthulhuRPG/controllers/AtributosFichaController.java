@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
@@ -30,12 +31,13 @@ public class AtributosFichaController {
         this.repository = repository;
         this.assembler = assembler;
     }
-
+    @Tag(name = "Get")
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<AtributosFicha>>> getAll(Pageable pageable) {
         return ResponseEntity.ok(assembler.toModel(repository.findAll(pageable)));
     }
 
+    @Tag(name = "Get")
     @Operation(summary = "Buscar Atributos da Ficha por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Atributos da Ficha encontradas",
@@ -52,6 +54,7 @@ public class AtributosFichaController {
         );
     }
 
+    @Tag(name = "Post")
     @Operation(summary = "Criar novas Atributos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Atributos criadas com sucesso",
@@ -65,6 +68,8 @@ public class AtributosFichaController {
         return ResponseEntity.created(URI.create("/atributos/" + entity.getId())).body(entity);
     }
 
+
+    @Tag(name = "Put")
     @Operation(summary = "Atualizar Atributos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Atributos atualizadas com sucesso",
@@ -85,6 +90,7 @@ public class AtributosFichaController {
         }).orElseThrow(() -> new AtributosNotFoundException("Atributo " +  id + " nao encontrado"));
     }
 
+    @Tag(name = "Delete")
     @Operation(summary = "Deletar Atributos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Atributos deletada com sucesso"),

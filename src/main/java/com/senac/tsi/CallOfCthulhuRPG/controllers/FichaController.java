@@ -38,7 +38,7 @@ public class FichaController {
     }
 
     @Tag(name = "Get")
-    @Operation(summary = "Listar todas habilidades")
+    @Operation(summary = "Listar todas as Fichas")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso",
             content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = HabilidadesFicha.class)))
@@ -48,14 +48,14 @@ public class FichaController {
     }
 
 
-
-    @Operation(summary = "Buscar habilidades por ID")
+    @Tag(name = "Get Ficha by Id")
+    @Operation(summary = "Buscar Ficha por ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Habilidades encontradas",
+            @ApiResponse(responseCode = "200", description = "Ficha encontradas",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HabilidadesFicha.class))),
             @ApiResponse(responseCode = "400", description = "ID inválido", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Habilidades não encontradas", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Ficha não encontradas", content = @Content)
     })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

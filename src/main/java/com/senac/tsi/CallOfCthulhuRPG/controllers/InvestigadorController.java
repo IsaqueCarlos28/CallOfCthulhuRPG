@@ -20,7 +20,7 @@ import org.springframework.data.domain.Pageable;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/investigadores")
+@RequestMapping("/investigador")
 public class InvestigadorController {
 
     private final InvestigadorFichaRepositorio repository;
@@ -32,16 +32,17 @@ public class InvestigadorController {
         this.assembler = assembler;
     }
 
-    @Tag(name = "Get todos os Investigadores")
+    @Tag(name = "Get")
     @Operation(summary = "Listar todos os investigadores")
     @ApiResponse(responseCode = "200", description = "Investigadores retornados com sucesso",
             content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = HabilidadesFicha.class)))
-    @GetMapping
+    @GetMapping("/Investigador")
     public ResponseEntity<PagedModel<EntityModel<Investigador>>> getAll(Pageable pageable) {
         return ResponseEntity.ok(assembler.toModel(repository.findAll(pageable)));
     }
 
+    @Tag(name = "Get")
     @Operation(summary = "Buscar Investigador por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Investigador encontradas",
@@ -58,6 +59,7 @@ public class InvestigadorController {
         return EntityModel.of(entity);
     }
 
+    @Tag(name = "Post")
     @Operation(summary = "Criar novas Investigador")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Investigador criadas com sucesso",
@@ -71,6 +73,7 @@ public class InvestigadorController {
         return ResponseEntity.created(URI.create("/investigadores/" + entity.getId())).body(entity);
     }
 
+    @Tag(name = "Put")
     @Operation(summary = "Atualizar Investigador")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Investigador atualizado com sucesso",
@@ -94,12 +97,13 @@ public class InvestigadorController {
         }).orElseThrow(() -> new InvestigadorNotFoundException("Investigador: " + id + " não encontrada"));
     }
 
+    @Tag(name = "Delete")
     @Operation(summary = "Deletar Investigador")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Investigador deletado com sucesso"),
             @ApiResponse(responseCode = "404", description = "Investigador não encontrado", content = @Content)
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/Investigador/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) throws InvestigadorNotFoundException {
         if (!repository.existsById(id))
             throw new InvestigadorNotFoundException("Investigador " + id + "  não encontrada");

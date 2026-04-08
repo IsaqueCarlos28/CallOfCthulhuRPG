@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -23,7 +24,7 @@ import java.net.URI;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
-@RequestMapping("/historicos")
+@RequestMapping("/historico")
 public class HistoricoFichaController {
 
     private final HistoricoFichaRepositorio repository;
@@ -35,6 +36,7 @@ public class HistoricoFichaController {
         this.assembler = assembler;
     }
 
+    @Tag(name = "Get")
     @Operation(summary = "Listar todas habilidades")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso",
             content = @Content(mediaType = "application/json",
@@ -45,6 +47,7 @@ public class HistoricoFichaController {
         return ResponseEntity.ok(assembler.toModel(page));
     }
 
+    @Tag(name = "Get")
     @Operation(summary = "Buscar historico por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Habilidades encontradas",
@@ -64,6 +67,7 @@ public class HistoricoFichaController {
                 linkTo(methodOn(HistoricoFichaController.class).getAll(Pageable.unpaged())).withRel("historicos"));
     }
 
+    @Tag(name = "Post")
     @Operation(summary = "Criar novas historico")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Historico criadas com sucesso",
@@ -71,7 +75,7 @@ public class HistoricoFichaController {
                             schema = @Schema(implementation = HabilidadesFicha.class))),
             @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content)
     })
-    @PostMapping
+    @PostMapping("/Historico")
     public ResponseEntity<HistoricoFicha> create(@RequestBody HistoricoFicha entity) {
         repository.save(entity);
         return ResponseEntity
@@ -79,6 +83,7 @@ public class HistoricoFichaController {
                 .body(entity);
     }
 
+    @Tag(name = "Put")
     @Operation(summary = "Atualizar Historico de personagem")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Historico de personagem atualizadas com sucesso",
@@ -86,7 +91,7 @@ public class HistoricoFichaController {
                             schema = @Schema(implementation = HabilidadesFicha.class))),
             @ApiResponse(responseCode = "404", description = "Historico de personagem não encontradas", content = @Content)
     })
-    @PutMapping("/{id}")
+    @PutMapping("/Historico/{id}")
     public ResponseEntity<HistoricoFicha> update(@PathVariable Long id,
                                                  @RequestBody HistoricoFicha updated) throws HistoricoNotFoundException {
 
@@ -107,12 +112,13 @@ public class HistoricoFichaController {
         }).orElseThrow(() -> new HistoricoNotFoundException("Historico " + id + "   não encontrado"));
     }
 
+    @Tag(name = "Delete")
     @Operation(summary = "Deletar Historico do Investigado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Historico deletado com sucesso"),
             @ApiResponse(responseCode = "404", description = "Historico não encontradas", content = @Content)
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/Historico/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) throws HistoricoNotFoundException {
 
         if (!repository.existsById(id))

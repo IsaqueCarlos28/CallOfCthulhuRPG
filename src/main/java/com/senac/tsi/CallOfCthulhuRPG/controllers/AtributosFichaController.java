@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import java.net.URI;
 
+@Tag(name = "Atributos")
 @RestController
 @RequestMapping("/atributos")
 public class AtributosFichaController {
@@ -31,13 +32,11 @@ public class AtributosFichaController {
         this.repository = repository;
         this.assembler = assembler;
     }
-    @Tag(name = "Atributos")
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<AtributosFicha>>> getAll(Pageable pageable) {
         return ResponseEntity.ok(assembler.toModel(repository.findAll(pageable)));
     }
 
-    @Tag(name = "Atributos")
     @Operation(summary = "Buscar Atributos da Ficha por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Atributos da Ficha encontradas",
@@ -54,7 +53,6 @@ public class AtributosFichaController {
         );
     }
 
-    @Tag(name = "Atributos")
     @Operation(summary = "Criar novas Atributos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Atributos criadas com sucesso",
@@ -69,7 +67,6 @@ public class AtributosFichaController {
     }
 
 
-    @Tag(name = "Atributos")
     @Operation(summary = "Atualizar Atributos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Atributos atualizadas com sucesso",
@@ -90,7 +87,6 @@ public class AtributosFichaController {
         }).orElseThrow(() -> new AtributosNotFoundException("Atributo " +  id + " nao encontrado"));
     }
 
-    @Tag(name = "Atributos")
     @Operation(summary = "Deletar Atributos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Atributos deletada com sucesso"),

@@ -1,9 +1,9 @@
 package com.senac.tsi.FichasRPG.controllers;
 
-import com.senac.tsi.FichasRPG.domains.ficha.Ficha;
-import com.senac.tsi.FichasRPG.domains.habilidades.HabilidadesFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.ModeloFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.habilidades.HabilidadesFicha;
 import com.senac.tsi.FichasRPG.exceptions.FichaNotFoundException;
-import com.senac.tsi.FichasRPG.repositories.FichaRepositorio;
+import com.senac.tsi.FichasRPG.repositories.ModeloFichaRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,16 +24,15 @@ import java.net.URI;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@Tag(name = "Fichas")
+@Tag(name = "Modelo Fichas / Sistemas")
 @RestController
-@RequestMapping("/fichas")
+@RequestMapping("/fichas-modelos")
 public class FichaController {
 
-    private final FichaRepositorio repository;
-    private final PagedResourcesAssembler<Ficha> assembler;
+    private final ModeloFichaRepository repository;
+    private final PagedResourcesAssembler<ModeloFicha> assembler;
 
-    public FichaController(FichaRepositorio repository,
-                           PagedResourcesAssembler<Ficha> assembler) {
+    public FichaController(ModeloFichaRepository repository,PagedResourcesAssembler<ModeloFicha> assembler) {
         this.repository = repository;
         this.assembler = assembler;
     }
@@ -44,7 +43,7 @@ public class FichaController {
             content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = HabilidadesFicha.class)))
     @GetMapping
-    public ResponseEntity<PagedModel<EntityModel<Ficha>>> getAll(Pageable pageable) {
+    public ResponseEntity<PagedModel<EntityModel<ModeloFicha>>> getAll(Pageable pageable) {
         return ResponseEntity.ok(assembler.toModel(repository.findAll(pageable)));
     }
 
@@ -60,7 +59,7 @@ public class FichaController {
     })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EntityModel<Ficha> getById(@PathVariable Long id) throws FichaNotFoundException {
+    public EntityModel<ModeloFicha> getById(@PathVariable Long id) throws FichaNotFoundException {
         var ficha = repository.findById(id)
                 .orElseThrow(() -> new FichaNotFoundException("Ficha" + id + "não encontrada"));
 
@@ -78,9 +77,9 @@ public class FichaController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<Ficha> create(@RequestBody Ficha ficha) {
-        repository.save(ficha);
-        return ResponseEntity.created(URI.create("/fichas/" + ficha.getId())).body(ficha);
+    public ResponseEntity<ModeloFicha> create(@RequestBody ModeloFicha modeloFicha) {
+        repository.save(modeloFicha);
+        return ResponseEntity.created(URI.create("/fichas/" + modeloFicha.getId())).body(modeloFicha);
     }
 
 
@@ -92,11 +91,11 @@ public class FichaController {
             @ApiResponse(responseCode = "404", description = "Ficha não encontradas", content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Ficha> update(@PathVariable Long id, @RequestBody Ficha updated) throws FichaNotFoundException {
+    public ResponseEntity<ModeloFicha> update(@PathVariable Long id, @RequestBody ModeloFicha updated) throws FichaNotFoundException {
 
         return repository.findById(id).map(ficha -> {
             ficha.setNomeJogador(updated.getNomeJogador());
-            ficha.setInvestigador(updated.getInvestigador());
+            ficha.setPersonagem(updated.getPersonagem());
             ficha.setAtributos(updated.getAtributos());
             ficha.setStatus(updated.getStatus());
             ficha.setHabilidades(updated.getHabilidades());

@@ -1,22 +1,22 @@
 package com.senac.tsi.FichasRPG.services;
 
-import com.senac.tsi.FichasRPG.domains.Recursos.RecursosFicha;
-import com.senac.tsi.FichasRPG.domains.atributos.AtributosFicha;
-import com.senac.tsi.FichasRPG.domains.ficha.Ficha;
-import com.senac.tsi.FichasRPG.domains.habilidades.HabilidadesFicha;
-import com.senac.tsi.FichasRPG.domains.historico.HistoricoFicha;
-import com.senac.tsi.FichasRPG.domains.personagens.Investigador;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.ModeloFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.Recursos.RecursosFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.atributos.AtributosFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.habilidades.HabilidadesFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.historico.HistoricoFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.personagens.Personagem;
 
 public class FichasService {
 
-    public Ficha criarFichaVazia(){
+    public ModeloFicha criarFichaVazia(){
         AtributosFicha atributos = new AtributosFicha();
         HabilidadesFicha habilidades = new HabilidadesFicha();
         HistoricoFicha historico = new HistoricoFicha();
-        Investigador investigador = new Investigador();
+        Personagem investigador = new Personagem();
         RecursosFicha recursos = new RecursosFicha();
 
-        return new Ficha(investigador,atributos,habilidades,historico,recursos);
+        return new ModeloFicha();
 
     }
 

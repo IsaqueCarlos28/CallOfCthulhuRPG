@@ -1,6 +1,6 @@
 package com.senac.tsi.FichasRPG.controllers;
 
-import com.senac.tsi.FichasRPG.domains.habilidades.HabilidadesFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.habilidades.HabilidadesFicha;
 import com.senac.tsi.FichasRPG.repositories.HistoricoFichaRepositorio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,7 +16,7 @@ import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.senac.tsi.FichasRPG.domains.historico.HistoricoFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.historico.HistoricoFicha;
 import com.senac.tsi.FichasRPG.exceptions.HistoricoNotFoundException;
 
 import java.net.URI;

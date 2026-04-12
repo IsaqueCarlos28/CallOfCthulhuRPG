@@ -15,7 +15,7 @@ import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.senac.tsi.FichasRPG.domains.habilidades.HabilidadesFicha;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.habilidades.HabilidadesFicha;
 import com.senac.tsi.FichasRPG.exceptions.HabilidadesNotFoundException;
 
 import java.net.URI;

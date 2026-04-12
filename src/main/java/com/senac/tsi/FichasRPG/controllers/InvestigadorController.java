@@ -1,9 +1,8 @@
 package com.senac.tsi.FichasRPG.controllers;
 
-import com.senac.tsi.FichasRPG.domains.habilidades.HabilidadesFicha;
-import com.senac.tsi.FichasRPG.domains.personagens.Investigador;
+import com.senac.tsi.FichasRPG.domains.modeloFicha.personagens.Personagem;
 import com.senac.tsi.FichasRPG.exceptions.InvestigadorNotFoundException;
-import com.senac.tsi.FichasRPG.repositories.InvestigadorFichaRepository;
+import com.senac.tsi.FichasRPG.repositories.ModeloFichaRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,11 +23,11 @@ import java.net.URI;
 @Tag(name = "Investigador")
 public class InvestigadorController {
 
-    private final InvestigadorFichaRepository repository;
-    private final PagedResourcesAssembler<Investigador> assembler;
+    private final ModeloFichaRepository repository;
+    private final PagedResourcesAssembler<Personagem> assembler;
 
-    public InvestigadorController(InvestigadorFichaRepository repository,
-                                  PagedResourcesAssembler<Investigador> assembler) {
+    public InvestigadorController(ModeloFichaRepository repository,
+                                  PagedResourcesAssembler<Personagem> assembler) {
         this.repository = repository;
         this.assembler = assembler;
     }
@@ -36,9 +35,9 @@ public class InvestigadorController {
     @Operation(summary = "Listar todos os investigadores")
     @ApiResponse(responseCode = "200", description = "Investigadores retornados com sucesso",
             content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Investigador.class)))
+                    schema = @Schema(implementation = Personagem.class)))
     @GetMapping()
-    public ResponseEntity<PagedModel<EntityModel<Investigador>>> getAll(Pageable pageable) {
+    public ResponseEntity<PagedModel<EntityModel<Personagem>>> getAll(Pageable pageable) {
         return ResponseEntity.ok(assembler.toModel(repository.findAll(pageable)));
     }
 
@@ -46,12 +45,12 @@ public class InvestigadorController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Investigador encontradas",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Investigador.class))),
+                            schema = @Schema(implementation = Personagem.class))),
             @ApiResponse(responseCode = "400", description = "ID inválido", content = @Content),
             @ApiResponse(responseCode = "404", description = "Investigador não encontrado", content = @Content)
     })
     @GetMapping("/{id}")
-    public EntityModel<Investigador> getById(@PathVariable Long id) throws InvestigadorNotFoundException {
+    public EntityModel<Personagem> getById(@PathVariable Long id) throws InvestigadorNotFoundException {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new InvestigadorNotFoundException("Investigador " + id + "  não encontrada"));
 
@@ -62,11 +61,11 @@ public class InvestigadorController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Investigador criadas com sucesso",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Investigador.class))),
+                            schema = @Schema(implementation = Personagem.class))),
             @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content)
     })
     @PostMapping
-    public ResponseEntity<Investigador> create(@RequestBody Investigador entity) {
+    public ResponseEntity<Personagem> create(@RequestBody Personagem entity) {
         repository.save(entity);
         return ResponseEntity.created(URI.create("/investigadores/" + entity.getId())).body(entity);
     }
@@ -75,12 +74,12 @@ public class InvestigadorController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Investigador atualizado com sucesso",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Investigador.class))),
+                            schema = @Schema(implementation = Personagem.class))),
             @ApiResponse(responseCode = "404", description = "Investigador não encontrado", content = @Content)
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Investigador> update(@PathVariable Long id,
-                                               @RequestBody Investigador updated) throws InvestigadorNotFoundException {
+    public ResponseEntity<Personagem> update(@PathVariable Long id,
+                                             @RequestBody Personagem updated) throws InvestigadorNotFoundException {
 
         return repository.findById(id).map(entity -> {
             entity.setNomeInvestigador(updated.getNomeInvestigador());

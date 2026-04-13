@@ -11,7 +11,7 @@ public class CompanheiroCampanha {
 
     @NotBlank
     @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
-    private String nome;
+    private String nomeTag;
 
     @NotBlank
     @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
@@ -19,8 +19,8 @@ public class CompanheiroCampanha {
 
     //CONSTRUCTORs
     public CompanheiroCampanha(){}
-    public CompanheiroCampanha(String nome,String personagem) {
-        setNome(nome);
+    public CompanheiroCampanha(String nomeTag,String personagem) {
+        setNome(nomeTag);
         setPersonagem(personagem);
     }
 
@@ -33,10 +33,10 @@ public class CompanheiroCampanha {
     }
 
     public String getNome() {
-        return nome;
+        return nomeTag;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nomeTag) {
+        this.nomeTag = nomeTag;
     }
 
     //METODOS
@@ -45,13 +45,13 @@ public class CompanheiroCampanha {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CompanheiroCampanha that = (CompanheiroCampanha) o;
-        return Objects.equals(nome, that.nome) &&
+        return Objects.equals(nomeTag, that.nomeTag) &&
                 Objects.equals(personagem, that.personagem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, personagem);
+        return Objects.hash(nomeTag, personagem);
     }
 
     @Override
@@ -60,6 +60,6 @@ public class CompanheiroCampanha {
                 CompanheiroCampanha{
                     Nome= %s,
                     Personagem= %s
-                }""".formatted(nome,personagem);
+                }""".formatted(nomeTag,personagem);
     }
 }

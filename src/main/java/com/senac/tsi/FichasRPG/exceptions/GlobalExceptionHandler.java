@@ -22,4 +22,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
+
+    @ExceptionHandler(RpgValidationException.class)
+    public ResponseEntity<Map<String,Object>> handleBadInput(RpgValidationException ex){
+        Map<String,Object> body = new HashMap<>();
+        body.put("timeStamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("error", "Bad request");
+        body.put("message", ex.getMessage());
+        body.put("process:",ex.getProcesso());
+        body.put("wrong parameter: ",ex.getParametroErrado());
+        body.put("expected parameter: ", ex.getParametroEsperado());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
 }

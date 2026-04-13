@@ -1,7 +1,6 @@
 package com.senac.tsi.FichasRPG.controllers;
 
 import com.senac.tsi.FichasRPG.domains.modeloFicha.personagens.Personagem;
-import com.senac.tsi.FichasRPG.exceptions.InvestigadorNotFoundException;
 import com.senac.tsi.FichasRPG.repositories.ModeloFichaRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

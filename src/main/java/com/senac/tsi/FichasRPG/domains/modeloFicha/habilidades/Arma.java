@@ -10,13 +10,13 @@ import java.util.Objects;
 public class Arma {
     @NotBlank
     @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
-    private String nome;
+    private String nomeTag;
 
     @Valid
     @NotNull
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "nome", column = @Column(name = "arma_pericia_nome")),
+            @AttributeOverride(name = "nomeTag", column = @Column(name = "arma_pericia_nome")),
             @AttributeOverride(name = "valor", column = @Column(name = "arma_pericia_valor"))
     })
     private Pericia pericia;
@@ -35,8 +35,8 @@ public class Arma {
 
     //CONSTRUCTORs
     public Arma(){}
-    public Arma(String nome, Pericia pericia, String dano, String alcance, int municao) {
-        setNome(nome);
+    public Arma(String nomeTag, Pericia pericia, String dano, String alcance, int municao) {
+        setNome(nomeTag);
         setPericia(pericia);
         setDano(dano);
         setAlcance(alcance);
@@ -45,10 +45,10 @@ public class Arma {
 
     //GETTERs e SETTERs
     public String getNome() {
-        return nome;
+        return nomeTag;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nomeTag) {
+        this.nomeTag = nomeTag;
     }
 
     public Pericia getPericia() {
@@ -87,7 +87,7 @@ public class Arma {
         if (o == null || getClass() != o.getClass()) return false;
         Arma arma = (Arma) o;
         return municao == arma.municao &&
-                Objects.equals(nome, arma.nome) &&
+                Objects.equals(nomeTag, arma.nomeTag) &&
                 Objects.equals(pericia, arma.pericia) &&
                 Objects.equals(dano, arma.dano) &&
                 Objects.equals(alcance, arma.alcance);
@@ -95,19 +95,19 @@ public class Arma {
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, pericia, dano, alcance, municao);
+        return Objects.hash(nomeTag, pericia, dano, alcance, municao);
     }
 
     @Override
     public String toString() {
         return """
             Arma{
-                nome='%s',
+                nomeTag='%s',
                 pericia=%s,
                 dano='%s',
                 alcance='%s',
                 municao=%d
             }
-            """.formatted(nome, pericia, dano, alcance, municao);
+            """.formatted(nomeTag, pericia, dano, alcance, municao);
     }
 }

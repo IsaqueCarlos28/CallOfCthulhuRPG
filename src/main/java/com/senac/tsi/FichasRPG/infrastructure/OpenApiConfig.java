@@ -13,9 +13,6 @@ import org.springframework.context.annotation.Configuration;
                 version = "0.0.1",
                 description = """
                 Crie e Utilize a sua fichas para jogar RPG com seus amigos!
-                
-                Sistemas de RPG suportados:
-                - CallOfCthlhu;
                 """,
                 contact = @Contact(
                         name = "Isaque Carlos",

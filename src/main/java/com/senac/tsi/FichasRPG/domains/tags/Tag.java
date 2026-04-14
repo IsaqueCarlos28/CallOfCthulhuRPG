@@ -18,12 +18,12 @@ public class Tag {
     @NotBlank
     @Size(min = 2,max = 30,message = "Numero de caracteres Invalidos")
     @Column(length = 30,nullable = false)
-    private String nome;
+    private String nomeTag;
 
     //CONSTRUCTORs
     public Tag(){}
     public Tag(String tagName){
-        setNome(tagName);
+        setNomeTag(tagName);
     }
 
     //GETTER e SETTER
@@ -33,12 +33,12 @@ public class Tag {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeTag() {
+        return nomeTag;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeTag(String nomeTag) {
+        this.nomeTag = nomeTag;
     }
 
     //METODOS
@@ -60,6 +60,6 @@ public class Tag {
         return """
                 id: %d
                 tag: %s
-                """.formatted(id,nome);
+                """.formatted(id, nomeTag);
     }
 }

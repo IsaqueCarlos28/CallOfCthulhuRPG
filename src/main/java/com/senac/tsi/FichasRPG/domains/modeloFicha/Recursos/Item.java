@@ -13,7 +13,7 @@ public class Item {
 
     @NotBlank(message = "Nome do item é obrigatorio")
     @Size(min = 1, max = 255)
-    private String nome;
+    private String nomeTag;
 
     @NotNull
     @PositiveOrZero(message = "Preço do item não pode ser negativo")
@@ -22,17 +22,17 @@ public class Item {
     //CONSTRUCTORs
 
     public Item(){}
-    public Item(String nome,float preco){
-     setNome(nome);
+    public Item(String nomeTag,float preco){
+     setNome(nomeTag);
      setPreco(preco);
     }
 
     //GETTERs e SETTERs
     public String getNome() {
-        return nome;
+        return nomeTag;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nomeTag) {
+        this.nomeTag = nomeTag;
     }
 
     public Float getPreco() {
@@ -50,20 +50,20 @@ public class Item {
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
         return Float.compare(preco, item.preco) == 0 &&
-                Objects.equals(nome, item.nome);
+                Objects.equals(nomeTag, item.nomeTag);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, preco);
+        return Objects.hash(nomeTag, preco);
     }
 
     @Override
     public String toString() {
         return """
                 Item{
-                    nome='%s',
+                    nomeTag='%s',
                     preco=%f
-                }""".formatted(nome, preco);
+                }""".formatted(nomeTag, preco);
     }
 }

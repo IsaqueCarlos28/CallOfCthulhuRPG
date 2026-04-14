@@ -50,9 +50,9 @@ public class Personagem {
 
     //CONSTRUCTORS
     public Personagem(){};
-    public Personagem(String nome, String ocupacao, String formacaoAcademica, String localNascimento
+    public Personagem(String nomeTag, String ocupacao, String formacaoAcademica, String localNascimento
             , Genero genero, int idade){
-        setNomeInvestigador(nome);
+        setNomeInvestigador(nomeTag);
         setOcupacao(ocupacao);
         setResidencia(formacaoAcademica);
         setLocalNascimento(localNascimento);

@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Pessoa {
     @NotBlank
     @Size(min = 2, max = 255, message = "Quantidade de caracteres invalidos")
-    private String nome;
+    private String nomeTag;
 
     @NotBlank
     @Size(min = 2, max = 255, message = "Quantidade de caracteres invalidos")
@@ -29,8 +29,8 @@ public class Pessoa {
 
     //CONSTRUCTORS
     public Pessoa(){}
-    public Pessoa(String nome, int idade, Genero genero, String relacao) {
-        setNome(nome);
+    public Pessoa(String nomeTag, int idade, Genero genero, String relacao) {
+        setNome(nomeTag);
         setIdade(idade);
         setGenero(genero);
         setRelacao(relacao);
@@ -38,10 +38,10 @@ public class Pessoa {
 
     //GETTERs e SETTERs
     public String getNome() {
-        return nome;
+        return nomeTag;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nomeTag) {
+        this.nomeTag = nomeTag;
     }
 
     public int getIdade() {
@@ -71,12 +71,12 @@ public class Pessoa {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pessoa pessoa = (Pessoa) o;
-        return idade == pessoa.idade && Objects.equals(nome, pessoa.nome) && genero == pessoa.genero && Objects.equals(relacao, pessoa.relacao);
+        return idade == pessoa.idade && Objects.equals(nomeTag, pessoa.nomeTag) && genero == pessoa.genero && Objects.equals(relacao, pessoa.relacao);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, idade, genero, relacao);
+        return Objects.hash(nomeTag, idade, genero, relacao);
     }
 
     @Override
@@ -87,6 +87,6 @@ public class Pessoa {
                 Idade = %s
                 Genero = %s
                 relação = %s  
-            }""".formatted(nome,idade,genero,relacao);
+            }""".formatted(nomeTag,idade,genero,relacao);
     }
 }

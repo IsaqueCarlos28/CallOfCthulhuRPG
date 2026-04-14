@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Pericia {
     @NotBlank(message = "Nome da Pericia é obrigatório")
     @Size(min = 1,max = 255,message = "numero de caracteres invalidos")
-    private String nome;
+    private String nomeTag;
 
     @PositiveOrZero
     @Min(0)
@@ -19,17 +19,17 @@ public class Pericia {
     //CONSTRUCTORs
     public Pericia(){}
 
-    public Pericia(String nome, int valor) {
-        setNome(nome);
+    public Pericia(String nomeTag, int valor) {
+        setNome(nomeTag);
         setValor(valor);
     }
 
     //GETTERs e SETTERs
     public String getNome() {
-        return nome;
+        return nomeTag;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nomeTag) {
+        this.nomeTag = nomeTag;
     }
 
     public int getValor() {
@@ -45,21 +45,21 @@ public class Pericia {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pericia pericia = (Pericia) o;
-        return valor == pericia.valor && Objects.equals(nome, pericia.nome);
+        return valor == pericia.valor && Objects.equals(nomeTag, pericia.nomeTag);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, valor);
+        return Objects.hash(nomeTag, valor);
     }
 
     @Override
     public String toString() {
         return """
             Pericia{
-                nome='%s',
+                nomeTag='%s',
                 valor=%d
             }
-            """.formatted(nome, valor);
+            """.formatted(nomeTag, valor);
     }
 }

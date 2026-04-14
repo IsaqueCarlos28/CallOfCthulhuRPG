@@ -2,8 +2,6 @@ package com.senac.tsi.FichasRPG.controllers;
 
 import com.senac.tsi.FichasRPG.domains.modeloFicha.atributos.AtributosFicha;
 import com.senac.tsi.FichasRPG.domains.modeloFicha.habilidades.HabilidadesFicha;
-import com.senac.tsi.FichasRPG.exceptions.AtributosNotFoundException;
-import com.senac.tsi.FichasRPG.repositories.ModeloFichaRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

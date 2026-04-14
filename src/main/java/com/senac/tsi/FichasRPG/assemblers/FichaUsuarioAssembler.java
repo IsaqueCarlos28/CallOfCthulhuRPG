@@ -2,6 +2,7 @@ package com.senac.tsi.FichasRPG.assemblers;
 
 
 import com.senac.tsi.FichasRPG.controllers.FichaUsuarioController;
+import com.senac.tsi.FichasRPG.controllers.UsuarioController;
 import com.senac.tsi.FichasRPG.domains.usuario.FichaUsuario;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -16,7 +17,9 @@ public class FichaUsuarioAssembler implements RepresentationModelAssembler<Ficha
     @Override
     public EntityModel<FichaUsuario> toModel(FichaUsuario ficha){
         return EntityModel.of(ficha,
-                linkTo(methodOn(FichaUsuarioController.class).getById(ficha.getId())).withSelfRel()
+                linkTo(methodOn(FichaUsuarioController.class).getById(ficha.getId())).withSelfRel(),
+                linkTo(methodOn(FichaUsuarioController.class).delete(ficha.getId())).withSelfRel(),
+                linkTo(methodOn(UsuarioController.class).getById(ficha.getUsuario().getId())).withRel("Usuario")
         );
     }
 }

@@ -38,7 +38,7 @@ public class UsuarioController {
         this.assembler = assembler;
     }
 
-    // 🔥 GET ALL
+
     @Operation(summary = "Listar usuários", description = "Retorna uma lista paginada de todos os usuários")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     @GetMapping
@@ -48,7 +48,7 @@ public class UsuarioController {
         return ResponseEntity.ok(pagedModelUsuarios);
     }
 
-    // 🔥 GET BY ID
+
     @Operation(summary = "Buscar usuário por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
@@ -65,7 +65,7 @@ public class UsuarioController {
         return ResponseEntity.ok(assembler.toModel(usuario));
     }
 
-    // 🔥 CREATE
+
     @Operation(summary = "Criar usuário")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
@@ -92,7 +92,6 @@ public class UsuarioController {
                 .body(assembler.toModel(usuario));
     }
 
-    // 🔥 UPDATE
     @Operation(summary = "Atualizar usuário")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
@@ -114,7 +113,7 @@ public class UsuarioController {
         }).orElseThrow(() -> new RPGNotFoundException("Usuario","id",id));
     }
 
-    // 🔥 DELETE
+
     @Operation(summary = "Deletar usuário")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Usuário deletado com sucesso"),

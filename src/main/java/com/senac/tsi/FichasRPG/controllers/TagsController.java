@@ -1,10 +1,11 @@
 package com.senac.tsi.FichasRPG.controllers;
 
-import com.senac.tsi.FichasRPG.assemblers.TagAssembler;
+
 import com.senac.tsi.FichasRPG.domains.tags.Tag;
 import com.senac.tsi.FichasRPG.exceptions.RPGAlreadyExistsException;
 import com.senac.tsi.FichasRPG.exceptions.RPGNotFoundException;
-import com.senac.tsi.FichasRPG.repositories.TagRepository;
+
+import com.senac.tsi.FichasRPG.service.TagServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -14,7 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedResourcesAssembler;
+
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/tags")
 public class TagsController {
 
-    private final TagRepository repository;
-    private final PagedResourcesAssembler<Tag> pagedResourcesAssembler;
-    private final TagAssembler tagAssembler;
+    private final TagServices service;
 
-    TagsController(TagRepository repository, PagedResourcesAssembler<Tag> pagedResourcesAssembler, TagAssembler tagAssembler) {
-        this.repository = repository;
-        this.pagedResourcesAssembler = pagedResourcesAssembler;
-        this.tagAssembler = tagAssembler;
+    TagsController(TagServices service) {
+        this.service = service;
 
     }
 
@@ -42,13 +39,7 @@ public class TagsController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<Tag>>> getAll(@ParameterObject Pageable pageable) {
-        var tags = repository.findAll(pageable);
-
-        PagedModel<EntityModel<Tag>> pagedModelTag = pagedResourcesAssembler.toModel(tags, tagAssembler);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(pagedModelTag);
+        return ResponseEntity.ok(service.getAll(pageable));
     }
 
 
@@ -66,13 +57,7 @@ public class TagsController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<Tag>> getTagById(@PathVariable(name = "id") long id){
-        var tag = repository.findById(id).orElseThrow(
-                ()-> new RPGNotFoundException("Tag","id",id)
-        );
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(tagAssembler.toModel(tag));
+        return ResponseEntity.ok(service.getById(id));
     }
 
 
@@ -91,13 +76,7 @@ public class TagsController {
     })
     @GetMapping("/{nome}")
     public ResponseEntity<EntityModel<Tag>> getTagByName(@PathVariable(name = "nome") String nome){
-        var tag = repository.findByNome(nome).orElseThrow(
-                ()-> new RuntimeException("Tag não encontrada")
-        );
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(tagAssembler.toModel(tag));
+        return ResponseEntity.ok(service.getByName(nome));
     }
 
 
@@ -120,13 +99,10 @@ public class TagsController {
                   schema = @Schema(implementation = Tag.class),
             examples = @ExampleObject(value = "{ \"nomeTag\": }")))
         @RequestBody @Valid Tag novaTag){
-        if (!repository.existsByNome(novaTag.getNomeTag())){
-            repository.save(novaTag);
-        }else{throw new RPGAlreadyExistsException("Tag","nome");}//Exception a ser criada - 409 - already exists
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(tagAssembler.toModel(novaTag));
+                .body(service.create(novaTag));
 
     }
 
@@ -146,29 +122,7 @@ public class TagsController {
     @PutMapping("/{id}")
     public ResponseEntity<EntityModel<Tag>> updateTag(@PathVariable(name = "id") Long id,
                                          @RequestBody Tag updatedTag){
-            return repository.findById(id).map(
-                    tag -> {
-                        if (repository.existsByNomeAndIdNot(updatedTag.getNomeTag(),id)) {
-                            throw new RPGAlreadyExistsException("Tag","nome");
-                        } else {
-                            tag.setNomeTag(updatedTag.getNomeTag());
-                            repository.save(tag);
-                            return ResponseEntity
-                                    .status(HttpStatus.OK)
-                                    .body(tagAssembler.toModel(tag));
-                        }
-
-                    }
-                ).orElseGet(()-> {
-                if (repository.existsByNomeAndIdNot(updatedTag.getNomeTag(),id)) {
-                    throw new RPGAlreadyExistsException("Tag","nome");
-                } else {
-                    repository.save(updatedTag);
-                    return ResponseEntity
-                            .status(HttpStatus.CREATED)
-                            .body(tagAssembler.toModel(updatedTag));
-                }
-            });
+         return service.edit(updatedTag,id);
     }
 
     @Operation(summary = "Deletada uma Tag")
@@ -180,10 +134,7 @@ public class TagsController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTagById (@PathVariable Long id){
-        Tag checkIfTagExists = repository.findById(id).orElseThrow(
-                ()-> new RPGNotFoundException("Tag","id",id)
-        );
-        repository.delete(checkIfTagExists);
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
